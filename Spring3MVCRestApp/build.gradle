@@ -1,0 +1,61 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'jetty'
+
+// JDK version source compatibility
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+// project version
+version = '1.0'
+
+// War file name
+war.baseName = 'Spring3MVCRestApp'
+
+// Web directory, this overrides the default value "webapp"
+//project.webAppDirName = 'webapp'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+ 
+   compile (
+   			'org.springframework:spring-web:3.0.6.RELEASE',
+   			'org.springframework:spring-webmvc:3.0.6.RELEASE',
+   			'org.springframework:spring-core:3.0.6.RELEASE',
+   			'org.codehaus.jackson:jackson-mapper-asl:1.9.10',
+   			'org.slf4j:slf4j-api:1.7.10',
+   			'log4j:log4j:1.2.17'
+     )
+	 
+	testCompile(
+            'junit:junit:4.12',
+            'org.springframework:spring-test:3.0.6.RELEASE'
+    )
+}
+
+// Embeded Jetty for testing
+jettyRun{
+	contextPath = "Spring3MVCRestApp"
+	httpPort = 8080
+}
+
+jettyRunWar{
+	contextPath = "Spring3MVCRestApp"
+	httpPort = 8080
+}
+
+//For Eclipse IDE only
+eclipse {
+  wtp {
+    component {    
+      //define context path, default to project folder name
+      contextPath = 'Spring3MVCRestApp'
+    }    
+  }
+}
+
